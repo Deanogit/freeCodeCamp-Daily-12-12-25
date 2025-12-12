@@ -8,10 +8,15 @@
 // For example, given an inventory of [[2, "apples"], [5, "bananas"]] and a shipment of [[1, "apples"], [3, "bananas"]], return [[3, "apples"], [8, "bananas"]].
 
 function updateInventory(inventory, shipment) {
+  // check format!
   if (!isValid2DArray(inventory) || !isValid2DArray(shipment)) {
     console.log('Invalid format!');
     return 'Invalid format!';
   }
+
+  // update items in the inventory by adding the quantity of any matching items from the shipment
+  checkMatch(inventory, shipment);
+
   // console.log(inventory, shipment)
   // Each element in the array will have the format: [integer, string]
   // how do i write at test to check?
@@ -30,6 +35,12 @@ function updateInventory(inventory, shipment) {
   // return inventory;
 }
 
+// Check if matches
+function checkMatch(arr1, arr2) {
+  console.log(arr1, arr2);
+}
+
+// Check isValid
 function isValid2DArray(arr) {
   for (const pair of arr) {
     if (
@@ -43,4 +54,4 @@ function isValid2DArray(arr) {
   return true;
 }
 
-updateInventory([['hello', 'hello']], [['hello', 'hello']]);
+// updateInventory([["hello", "hello"]], [["hello", "hello"]])
