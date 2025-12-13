@@ -17,6 +17,40 @@ function updateInventory(inventory, shipment) {
   // update items in the inventory by adding the quantity of any matching items from the shipment
   checkMatch(inventory, shipment);
 
+  // the solution uses a map
+  const qtyMap = new Map();
+
+  // stores the original order
+  const originalOrder = [];
+
+  // run through inventory adding to qtyMap & pushing to originalOrder
+  for (const [qty, item] of inventory) {
+    qtyMap.set(item, qty);
+    originalOrder.push(item);
+  }
+
+  // track new items in order of appearance in shipment
+  const newItemsOrder = [];
+
+  for (const [item, qty] of shipment) {
+    if (qtyMap.has(item)) {
+      // existing item: add quantity .get() returns the value!
+      qtyMap.set(item, qtyMap.get(item) + qty);
+    } else {
+      // new item: add to map and remember order
+      qtyMap.set(item, qty);
+      newItemsOrder.push(item);
+    }
+  }
+
+  // build the result: existing items in original order, then new items in the shipment order
+  const updated = originalOrder.map((item) => [qtyMap.get(item), item]);
+  for (const item of newItemsOrder) {
+    updated.push([qtyMap.get(item), item]);
+  }
+
+  return updated;
+
   // console.log(inventory, shipment)
   // Each element in the array will have the format: [integer, string]
   // how do i write at test to check?
