@@ -32,7 +32,7 @@ function updateInventory(inventory, shipment) {
   // track new items in order of appearance in shipment
   const newItemsOrder = [];
 
-  for (const [item, qty] of shipment) {
+  for (const [qty, item] of shipment) {
     if (qtyMap.has(item)) {
       // existing item: add quantity .get() returns the value!
       qtyMap.set(item, qtyMap.get(item) + qty);
